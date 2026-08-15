@@ -34,7 +34,15 @@ const gameBoard = (() => {
 
     board[row][selectedCell].addToken(token);
   };
-  return { getBoard, dropToken };
+
+  const printBoard = () => {
+    const boardWithCellValues = board.map((row) =>
+      row.map((cell) => cell.getValue()),
+    );
+    console.log(boardWithCellValues);
+  };
+
+  return { getBoard, dropToken, printBoard };
 })();
 
 function Cell() {
@@ -51,3 +59,5 @@ function Cell() {
     getValue,
   };
 }
+
+gameBoard.printBoard();
