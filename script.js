@@ -60,4 +60,25 @@ function Cell() {
   };
 }
 
-gameBoard.printBoard();
+const game = ((playerOneName = "Player One", playerTwoName = "Player Two") => {
+  const players = [
+    {
+      name: playerOneName,
+      token: "X",
+    },
+    {
+      name: playerTwoName,
+      token: "O",
+    },
+  ];
+
+  let activePlayer = players[0];
+
+  const switchPlayerTurn = () => {
+    activePlayer = activePlayer === players[0] ? players[0] : players[1];
+  };
+
+  const getActivePlayer = () => activePlayer;
+
+  return { getActivePlayer, getBoard: gameBoard.getBoard };
+})();
