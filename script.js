@@ -12,26 +12,30 @@ const gameBoard = (() => {
 
   const getBoard = () => board;
 
-  const getAvailableCells = () => {
-    const availableCells = [];
-
+  const findCellPosition = (cell) => {
+    const positions = [];
     board.forEach((row) => {
-      row.forEach((column) => {
-        if (column.getValue() === "") {
-          availableCells.push(column.getValue());
-        }
-      });
+      const foundCell = row.find((element) => element === cell);
+      if (foundCell) {
+        const rowIndex = board.indexOf(row);
+        const cellIndex = row.indexOf(cell);
+        positions.push(rowIndex);
+        positions.push(cellIndex);
+      }
     });
 
-    return availableCells;
+    return positions;
   };
 
-  const dropToken = (cell, token) => {};
+  const dropToken = (cell, token) => {
+    if (cell.getValue() != "") return;
 
-  return { getBoard, getAvailableCells };
+    const [row, selectedCell] = findCellPosition(cell);
+
+    board[row][selectedCell].addToken(token);
+  };
+  return { getBoard, dropToken };
 })();
-
-console.log(gameBoard.getAvailableCells());
 
 function Cell() {
   let value = "";
