@@ -42,7 +42,13 @@ const gameBoard = (() => {
     console.log(boardWithCellValues);
   };
 
-  return { getBoard, dropToken, printBoard };
+  const isBoardFilled = () => {
+    const isFilled = board.flat().every((cell) => cell.getValue() != "");
+
+    return isFilled;
+  };
+
+  return { getBoard, dropToken, printBoard, isBoardFilled };
 })();
 
 function Cell() {
@@ -80,5 +86,23 @@ const game = ((playerOneName = "Player One", playerTwoName = "Player Two") => {
 
   const getActivePlayer = () => activePlayer;
 
-  return { getActivePlayer, getBoard: gameBoard.getBoard };
+  const isGameOver = () => {
+    if (gameBoard.isBoardFilled()) {
+      return true;
+    }
+  };
+
+  return { getActivePlayer, getBoard: gameBoard.getBoard, isGameOver };
 })();
+
+game.isGameOver();
+
+gameBoard
+  .getBoard()
+  .flat()
+  .forEach((cell) => {
+    gameBoard.dropToken(cell, "X");
+  });
+
+gameBoard.printBoard();
+game.isGameOver();
