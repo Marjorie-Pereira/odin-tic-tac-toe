@@ -66,7 +66,7 @@ function Cell() {
   };
 }
 
-const game = ((playerOneName = "Player One", playerTwoName = "Player Two") => {
+function NewGame(playerOneName = "Player One", playerTwoName = "Player Two") {
   const players = [
     {
       name: playerOneName,
@@ -81,7 +81,9 @@ const game = ((playerOneName = "Player One", playerTwoName = "Player Two") => {
   let activePlayer = players[0];
 
   const switchPlayerTurn = () => {
-    activePlayer = activePlayer === players[0] ? players[0] : players[1];
+    console.log(activePlayer === players[0]);
+    activePlayer = activePlayer === players[0] ? players[1] : players[0];
+    console.log(activePlayer);
   };
 
   const getActivePlayer = () => activePlayer;
@@ -121,56 +123,46 @@ const game = ((playerOneName = "Player One", playerTwoName = "Player Two") => {
   };
 
   const isGameOver = () => {
-    return checkForWinner() || gameBoard.isBoardFilled();
+    const gameOver = checkForWinner() || gameBoard.isBoardFilled();
+
+    if (gameOver) {
+      const message = checkForWinner()
+        ? `${getActivePlayer.name} is the winner`
+        : "The Game is Over, No One Wins";
+      console.log(message);
+    }
+    return gameOver;
   };
 
   const printNewRound = () => {
-    board.printBoard();
+    gameBoard.printBoard();
     console.log(`${getActivePlayer().name}'s turn.`);
   };
 
-  return { getActivePlayer, getBoard: gameBoard.getBoard, isGameOver };
-})();
+  const playRound = (cell) => {
+    console.log(
+      `Dropping ${getActivePlayer().name}'s token into selected cell...`,
+    );
+
+    gameBoard.dropToken(cell, getActivePlayer().token);
+    const gameOver = isGameOver();
+
+    if (gameOver) {
+      return;
+    }
+
+    switchPlayerTurn();
+    printNewRound();
+  };
+
+  printNewRound();
+
+  return { getActivePlayer, getBoard: gameBoard.getBoard, playRound };
+}
 
 gameBoard.printBoard();
 
-const first = gameBoard.getBoard().at(0);
-const second = gameBoard.getBoard().at(1);
-const third = gameBoard.getBoard().at(2);
-
-// line test
-// first.forEach((cell) => gameBoard.dropToken(cell, "X"));
-
-// column test
-// gameBoard.dropToken(first[0], "X");
-// gameBoard.dropToken(second[0], "X");
-// gameBoard.dropToken(third[0], "X");
-// gameBoard.dropToken(first[1], "X");
-// gameBoard.dropToken(second[1], "X");
-// gameBoard.dropToken(third[1], "X");
-
-//diagonal test
-// gameBoard.dropToken(first[0], "X");
-// gameBoard.dropToken(second[1], "X");
-// gameBoard.dropToken(third[2], "X");
-// gameBoard.dropToken(first[2], "X");
-// gameBoard.dropToken(second[1], "X");
-// gameBoard.dropToken(third[0], "X");
-
-first.forEach((cell, idx) => {
-  const token = idx % 2 === 0 ? "X" : "O";
-  gameBoard.dropToken(cell, token);
-});
-
-second.forEach((cell, idx) => {
-  const token = idx % 2 != 0 ? "X" : "O";
-  gameBoard.dropToken(cell, token);
-});
-third.forEach((cell, idx) => {
-  const token = idx % 2 === 0 ? "1" : "2";
-  gameBoard.dropToken(cell, token);
-});
-gameBoard.printBoard();
-
-const isOver = game.isGameOver();
-console.log(isOver);
+const firstRow = gameBoard.getBoard().at(0);
+const game = NewGame("Jobs", "Libs");
+game.playRound(firstRow[0]);
+game.playRound(firstRow[1]);
