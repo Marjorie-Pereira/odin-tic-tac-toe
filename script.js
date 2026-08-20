@@ -124,6 +124,11 @@ const game = ((playerOneName = "Player One", playerTwoName = "Player Two") => {
     return checkForWinner() || gameBoard.isBoardFilled();
   };
 
+  const printNewRound = () => {
+    board.printBoard();
+    console.log(`${getActivePlayer().name}'s turn.`);
+  };
+
   return { getActivePlayer, getBoard: gameBoard.getBoard, isGameOver };
 })();
 
