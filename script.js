@@ -81,9 +81,7 @@ function NewGame(playerOneName = "Player One", playerTwoName = "Player Two") {
   let activePlayer = players[0];
 
   const switchPlayerTurn = () => {
-    console.log(activePlayer === players[0]);
     activePlayer = activePlayer === players[0] ? players[1] : players[0];
-    console.log(activePlayer);
   };
 
   const getActivePlayer = () => activePlayer;
