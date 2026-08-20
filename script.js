@@ -161,16 +161,3 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
 
   return { getActivePlayer, getBoard: gameBoard.getBoard, playRound };
 }
-
-const firstRow = gameBoard.getBoard().at(0);
-const secondRow = gameBoard.getBoard().at(1);
-const thirdRow = gameBoard.getBoard().at(2);
-const game = TicTacToe("Jobs", "Libs");
-
-game.playRound(firstRow[0]);
-game.playRound(secondRow[0]);
-
-game.playRound(firstRow[1]);
-game.playRound(secondRow[1]);
-
-game.playRound(firstRow[2]);

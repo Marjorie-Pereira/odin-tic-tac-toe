@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: cadetblue;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  margin: 2rem auto;
+}
+
+div {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  display: block;
+  margin: 0.5rem 0;
+  width: 20%;
+}
+
+input {
+  display: block;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+button {
+  width: 20%;
+  padding: 1rem 0;
+  background-color: rgb(10, 54, 135);
+  border: none;
+  color: white;
+  font-weight: bold;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgb(23, 74, 171);
+}
