@@ -86,23 +86,86 @@ const game = ((playerOneName = "Player One", playerTwoName = "Player Two") => {
 
   const getActivePlayer = () => activePlayer;
 
-  const isGameOver = () => {
-    if (gameBoard.isBoardFilled()) {
-      return true;
+  const checkCellValue = (array, token) => {
+    return array.every((cell) => cell.getValue() === token);
+  };
+
+  const checkForWinner = () => {
+    const playerToken = getActivePlayer().token;
+
+    const board = gameBoard.getBoard();
+    let winner = false;
+
+    for (let i = 0; i < board[0].length; i++) {
+      const row = board[i];
+
+      const boardColumn = [board[0][i], board[1][i], board[2][i]];
+
+      winner =
+        checkCellValue(row, playerToken) ||
+        checkCellValue(boardColumn, playerToken);
+
+      if (winner) {
+        return true;
+      }
     }
+
+    const diagonal = [board[0][0], board[1][1], board[2][2]];
+    const reverseDiagonal = [board[0][2], board[1][1], board[2][0]];
+
+    winner =
+      checkCellValue(diagonal, playerToken) ||
+      checkCellValue(reverseDiagonal, playerToken);
+
+    return winner;
+  };
+
+  const isGameOver = () => {
+    return checkForWinner() || gameBoard.isBoardFilled();
   };
 
   return { getActivePlayer, getBoard: gameBoard.getBoard, isGameOver };
 })();
 
-game.isGameOver();
-
-gameBoard
-  .getBoard()
-  .flat()
-  .forEach((cell) => {
-    gameBoard.dropToken(cell, "X");
-  });
-
 gameBoard.printBoard();
-game.isGameOver();
+
+const first = gameBoard.getBoard().at(0);
+const second = gameBoard.getBoard().at(1);
+const third = gameBoard.getBoard().at(2);
+
+// line test
+// first.forEach((cell) => gameBoard.dropToken(cell, "X"));
+
+// column test
+// gameBoard.dropToken(first[0], "X");
+// gameBoard.dropToken(second[0], "X");
+// gameBoard.dropToken(third[0], "X");
+// gameBoard.dropToken(first[1], "X");
+// gameBoard.dropToken(second[1], "X");
+// gameBoard.dropToken(third[1], "X");
+
+//diagonal test
+// gameBoard.dropToken(first[0], "X");
+// gameBoard.dropToken(second[1], "X");
+// gameBoard.dropToken(third[2], "X");
+// gameBoard.dropToken(first[2], "X");
+// gameBoard.dropToken(second[1], "X");
+// gameBoard.dropToken(third[0], "X");
+
+first.forEach((cell, idx) => {
+  const token = idx % 2 === 0 ? "X" : "O";
+  gameBoard.dropToken(cell, token);
+});
+
+second.forEach((cell, idx) => {
+  const token = idx % 2 != 0 ? "X" : "O";
+  gameBoard.dropToken(cell, token);
+});
+third.forEach((cell, idx) => {
+  const token = idx % 2 === 0 ? "1" : "2";
+  gameBoard.dropToken(cell, token);
+});
+gameBoard.printBoard();
+
+const isOver = game.isGameOver();
+console.log(isOver);
