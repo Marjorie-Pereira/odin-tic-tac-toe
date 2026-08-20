@@ -69,7 +69,7 @@ function Cell() {
   };
 }
 
-function NewGame(playerOneName = "Player One", playerTwoName = "Player Two") {
+function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
   const players = [
     {
       name: playerOneName,
@@ -128,7 +128,7 @@ function NewGame(playerOneName = "Player One", playerTwoName = "Player Two") {
 
     if (gameOver) {
       const message = checkForWinner()
-        ? `${getActivePlayer.name} is the winner`
+        ? `${getActivePlayer().name} is the winner`
         : "The Game is Over, No One Wins";
       console.log(message);
     }
@@ -149,6 +149,7 @@ function NewGame(playerOneName = "Player One", playerTwoName = "Player Two") {
     const gameOver = isGameOver();
 
     if (gameOver) {
+      gameBoard.printBoard();
       return;
     }
 
@@ -161,9 +162,15 @@ function NewGame(playerOneName = "Player One", playerTwoName = "Player Two") {
   return { getActivePlayer, getBoard: gameBoard.getBoard, playRound };
 }
 
-gameBoard.printBoard();
-
 const firstRow = gameBoard.getBoard().at(0);
-const game = NewGame("Jobs", "Libs");
+const secondRow = gameBoard.getBoard().at(1);
+const thirdRow = gameBoard.getBoard().at(2);
+const game = TicTacToe("Jobs", "Libs");
+
 game.playRound(firstRow[0]);
+game.playRound(secondRow[0]);
+
 game.playRound(firstRow[1]);
+game.playRound(secondRow[1]);
+
+game.playRound(firstRow[2]);
