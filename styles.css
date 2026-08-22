@@ -72,7 +72,7 @@ button:hover {
   background-color: #fff;
   width: fit-content;
   margin: auto;
-  margin-top: 2rem;
+  margin-top: 1rem;
   gap: 0.5rem;
 }
 
@@ -84,8 +84,14 @@ button:hover {
   background-color: rgb(118, 175, 177);
 }
 
+.board-cell {
+  padding: 0;
+}
+
 .board-cell button {
   width: 100%;
   height: 100%;
   background-color: transparent;
+  font-size: 3rem;
+  font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
 }

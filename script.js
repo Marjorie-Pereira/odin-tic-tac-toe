@@ -163,7 +163,22 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
 }
 
 function ScreenController(game) {
-  console.log("game", game.getActivePlayer());
+  const board = game.getBoard();
+  const boardDiv = document.querySelector("#game-board");
+
+  board.forEach((row) => {
+    row.forEach((cell, index) => {
+      const cellButton = document.createElement("button");
+      const boardCell = document.createElement("div");
+
+      cellButton.id = index;
+      cellButton.textContent = cell.getValue();
+      boardCell.classList.add("board-cell");
+
+      boardCell.appendChild(cellButton);
+      boardDiv.appendChild(boardCell);
+    });
+  });
 }
 
 function startGame() {
