@@ -64,3 +64,28 @@ button:hover {
 .score div p {
   font-size: 1.2rem;
 }
+
+#game-board {
+  display: grid;
+  justify-content: center;
+  grid-template: repeat(3, 130px) / repeat(3, 130px);
+  background-color: #fff;
+  width: fit-content;
+  margin: auto;
+  margin-top: 2rem;
+  gap: 0.5rem;
+}
+
+#game-board div {
+  background-color: cadetblue;
+}
+
+#game-board div:hover {
+  background-color: rgb(118, 175, 177);
+}
+
+.board-cell button {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
