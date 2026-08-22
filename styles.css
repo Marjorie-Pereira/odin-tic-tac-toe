@@ -17,7 +17,7 @@ h1 {
   margin: 2rem auto;
 }
 
-div {
+#start-screen {
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -49,4 +49,18 @@ button {
 button:hover {
   cursor: pointer;
   background-color: rgb(23, 74, 171);
+}
+
+.score {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.score div h2 {
+  margin-bottom: 1rem;
+}
+
+.score div p {
+  font-size: 1.2rem;
 }
