@@ -161,3 +161,29 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
 
   return { getActivePlayer, getBoard: gameBoard.getBoard, playRound };
 }
+
+const startBtn = document.querySelector("#start-btn");
+const startScreen = document.querySelector("#start-screen");
+const playerOneInput = document.querySelector("#playerOne");
+const playerTwoInput = document.querySelector("#playerTwo");
+let playerOneName;
+let playerTwoName;
+
+startBtn.addEventListener("click", () => {
+  startScreen.innerHTML = "";
+  playerOneName = playerOneInput.value.trim();
+  playerTwoName = playerTwoInput.value.trim();
+
+  startScreen.innerHTML = `
+  <div class="score">
+        <div class="p1-score">
+          <h2>${playerOneName || "Player One"}</h2>
+          <p>Score: 0</p>
+        </div>
+        <div class="p2-score">
+          <h2>${playerTwoName || "Player Two"}</h2>
+          <p>Score: 0</p>
+        </div>
+  </div>
+  `;
+});
