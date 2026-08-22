@@ -163,27 +163,38 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
 }
 
 const startBtn = document.querySelector("#start-btn");
-const startScreen = document.querySelector("#start-screen");
-const playerOneInput = document.querySelector("#playerOne");
-const playerTwoInput = document.querySelector("#playerTwo");
-let playerOneName;
-let playerTwoName;
 
-startBtn.addEventListener("click", () => {
-  startScreen.innerHTML = "";
-  playerOneName = playerOneInput.value.trim();
-  playerTwoName = playerTwoInput.value.trim();
+function ScreenController() {
+  const playerTurnText = document.querySelector("#player-turn");
+  const startScreen = document.querySelector("#start-screen");
+  const playerOneInput = document.querySelector("#playerOne");
+  const playerTwoInput = document.querySelector("#playerTwo");
+  const gameBoardDiv = document.querySelector("#game-board");
+
+  const playerOneName = playerOneInput.value.trim();
+  const playerTwoName = playerTwoInput.value.trim();
+  const game = TicTacToe(
+    playerOneName || undefined,
+    playerTwoName || undefined,
+  );
+
+  const activePlayer = game.getActivePlayer();
 
   startScreen.innerHTML = `
-  <div class="score">
-        <div class="p1-score">
-          <h2>${playerOneName || "Player One"}</h2>
-          <p>Score: 0</p>
-        </div>
-        <div class="p2-score">
-          <h2>${playerTwoName || "Player Two"}</h2>
-          <p>Score: 0</p>
-        </div>
-  </div>
+      <div class="score">
+            <div class="p1-score">
+              <h2>${playerOneName || "Player One"}</h2>
+              <p>Score: 0</p>
+            </div>
+            <div class="p2-score">
+              <h2>${playerTwoName || "Player Two"}</h2>
+              <p>Score: 0</p>
+            </div>
+      </div>
+   
   `;
-});
+  gameBoardDiv.style.display = "grid";
+  playerTurnText.textContent = `${activePlayer.name}'s turn`;
+}
+
+startBtn.addEventListener("click", ScreenController);
