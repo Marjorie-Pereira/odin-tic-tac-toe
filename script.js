@@ -198,7 +198,7 @@ function ScreenController(game) {
   };
 
   boardDiv.addEventListener("click", (e) => {
-    if (game.isGameOver()) {
+    if (game.isGameOver() || e.target.textContent != "") {
       return;
     }
     const [row, col] = e.target.id.split("-");
