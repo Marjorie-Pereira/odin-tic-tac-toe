@@ -169,7 +169,9 @@ function ScreenController(game) {
 
     playerTurnText.textContent = game.checkForWinner()
       ? `${activePlayer.name} wins!`
-      : `${activePlayer.name}'s turn...`;
+      : game.isGameOver()
+        ? "Game Over"
+        : `${activePlayer.name}'s turn...`;
 
     board.forEach((row, rowIndex) => {
       row.forEach((cell, index) => {
