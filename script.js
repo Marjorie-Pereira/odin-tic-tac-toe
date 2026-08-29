@@ -163,22 +163,37 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
 }
 
 function ScreenController(game) {
-  const board = game.getBoard();
   const boardDiv = document.querySelector("#game-board");
+  const playerTurnText = document.querySelector("#player-turn");
 
-  board.forEach((row) => {
-    row.forEach((cell, index) => {
-      const cellButton = document.createElement("button");
-      const boardCell = document.createElement("div");
+  const updateScreen = () => {
+    boardDiv.textContent = "";
 
-      cellButton.id = index;
-      cellButton.textContent = cell.getValue();
-      boardCell.classList.add("board-cell");
+    const board = game.getBoard();
+    const activePlayer = game.getActivePlayer();
 
-      boardCell.appendChild(cellButton);
-      boardDiv.appendChild(boardCell);
+    playerTurnText.textContent = `${activePlayer.name}'s turn...`;
+
+    board.forEach((row) => {
+      row.forEach((cell, index) => {
+        const cellButton = document.createElement("button");
+        const boardCell = document.createElement("div");
+
+        cellButton.id = index;
+        cellButton.textContent = cell.getValue();
+        boardCell.classList.add("board-cell");
+
+        boardCell.appendChild(cellButton);
+        boardDiv.appendChild(boardCell);
+      });
     });
-  });
+  };
+
+  // boardDiv.addEventListener("click", () => {
+  //   const cell =
+  // });
+
+  updateScreen();
 }
 
 function startGame() {
