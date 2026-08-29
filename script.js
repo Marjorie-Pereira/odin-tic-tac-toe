@@ -126,12 +126,12 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
   const isGameOver = () => {
     const gameOver = checkForWinner() || gameBoard.isBoardFilled();
 
-    if (gameOver) {
-      const message = checkForWinner()
-        ? `${getActivePlayer().name} is the winner`
-        : "The Game is Over, No One Wins";
-      console.log(message);
-    }
+    // if (gameOver) {
+    //   const message = checkForWinner()
+    //     ? `${getActivePlayer().name} is the winner`
+    //     : "The Game is Over, No One Wins";
+    //   console.log(message);
+    // }
     return gameOver;
   };
 
@@ -149,7 +149,8 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
     const gameOver = isGameOver();
 
     if (gameOver) {
-      gameBoard.printBoard();
+      // gameBoard.printBoard();
+      console.log("game over");
       return;
     }
 
@@ -157,7 +158,7 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
     printNewRound();
   };
 
-  printNewRound();
+  // printNewRound();
 
   return { getActivePlayer, getBoard: gameBoard.getBoard, playRound };
 }
@@ -165,21 +166,22 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
 function ScreenController(game) {
   const boardDiv = document.querySelector("#game-board");
   const playerTurnText = document.querySelector("#player-turn");
+  const board = game.getBoard();
 
   const updateScreen = () => {
     boardDiv.textContent = "";
 
-    const board = game.getBoard();
     const activePlayer = game.getActivePlayer();
 
     playerTurnText.textContent = `${activePlayer.name}'s turn...`;
 
-    board.forEach((row) => {
+    board.forEach((row, rowIndex) => {
       row.forEach((cell, index) => {
         const cellButton = document.createElement("button");
         const boardCell = document.createElement("div");
 
-        cellButton.id = index;
+        cellButton.id = rowIndex + "-" + index;
+
         cellButton.textContent = cell.getValue();
         boardCell.classList.add("board-cell");
 
@@ -189,9 +191,13 @@ function ScreenController(game) {
     });
   };
 
-  // boardDiv.addEventListener("click", () => {
-  //   const cell =
-  // });
+  boardDiv.addEventListener("click", (e) => {
+    const [row, col] = e.target.id.split("-");
+    const cell = board.at(row).at(col);
+
+    game.playRound(cell);
+    updateScreen();
+  });
 
   updateScreen();
 }
