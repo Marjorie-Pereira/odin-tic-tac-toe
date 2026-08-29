@@ -82,6 +82,7 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
   ];
 
   let activePlayer = players[0];
+  let gameOver = false;
 
   const switchPlayerTurn = () => {
     activePlayer = activePlayer === players[0] ? players[1] : players[0];
@@ -124,14 +125,6 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
   };
 
   const isGameOver = () => {
-    const gameOver = checkForWinner() || gameBoard.isBoardFilled();
-
-    // if (gameOver) {
-    //   const message = checkForWinner()
-    //     ? `${getActivePlayer().name} is the winner`
-    //     : "The Game is Over, No One Wins";
-    //   console.log(message);
-    // }
     return gameOver;
   };
 
@@ -146,13 +139,8 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
     );
 
     gameBoard.dropToken(cell, getActivePlayer().token);
-    const gameOver = isGameOver();
 
-    if (gameOver) {
-      // gameBoard.printBoard();
-      console.log("game over");
-      return;
-    }
+    gameOver = checkForWinner() || gameBoard.isBoardFilled();
 
     switchPlayerTurn();
     printNewRound();
@@ -160,7 +148,13 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
 
   // printNewRound();
 
-  return { getActivePlayer, getBoard: gameBoard.getBoard, playRound };
+  return {
+    getActivePlayer,
+    getBoard: gameBoard.getBoard,
+    playRound,
+    isGameOver,
+    checkForWinner,
+  };
 }
 
 function ScreenController(game) {
@@ -192,6 +186,9 @@ function ScreenController(game) {
   };
 
   boardDiv.addEventListener("click", (e) => {
+    if (game.isGameOver()) {
+      return;
+    }
     const [row, col] = e.target.id.split("-");
     const cell = board.at(row).at(col);
 
