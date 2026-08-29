@@ -142,7 +142,7 @@ function TicTacToe(playerOneName = "Player One", playerTwoName = "Player Two") {
 
     gameOver = checkForWinner() || gameBoard.isBoardFilled();
 
-    switchPlayerTurn();
+    if (!gameOver) switchPlayerTurn();
     printNewRound();
   };
 
@@ -167,7 +167,9 @@ function ScreenController(game) {
 
     const activePlayer = game.getActivePlayer();
 
-    playerTurnText.textContent = `${activePlayer.name}'s turn...`;
+    playerTurnText.textContent = game.checkForWinner()
+      ? `${activePlayer.name} wins!`
+      : `${activePlayer.name}'s turn...`;
 
     board.forEach((row, rowIndex) => {
       row.forEach((cell, index) => {
