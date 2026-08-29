@@ -44,6 +44,7 @@ button {
   border: none;
   color: white;
   font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 button:hover {
@@ -71,8 +72,7 @@ button:hover {
   grid-template: repeat(3, 130px) / repeat(3, 130px);
   background-color: #fff;
   width: fit-content;
-  margin: auto;
-  margin-top: 1rem;
+  margin: 2rem auto;
   gap: 0.5rem;
 }
 
@@ -94,4 +94,10 @@ button:hover {
   background-color: transparent;
   font-size: 3rem;
   font-family: "Comic Sans MS", "Comic Sans", cursive, sans-serif;
+}
+
+#restart {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
 }

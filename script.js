@@ -166,10 +166,18 @@ function ScreenController(game) {
     boardDiv.textContent = "";
 
     const activePlayer = game.getActivePlayer();
+    const gameOver = game.isGameOver();
+
+    if (gameOver) {
+      const restartBtn = document.createElement("button");
+      restartBtn.id = "restart";
+      restartBtn.textContent = "Play Again";
+      document.body.appendChild(restartBtn);
+    }
 
     playerTurnText.textContent = game.checkForWinner()
       ? `${activePlayer.name} wins!`
-      : game.isGameOver()
+      : gameOver
         ? "Game Over"
         : `${activePlayer.name}'s turn...`;
 
@@ -239,4 +247,5 @@ function startGame() {
 }
 
 const startBtn = document.querySelector("#start-btn");
+const restartBtn = document.querySelector("#restart");
 startBtn.addEventListener("click", startGame);
